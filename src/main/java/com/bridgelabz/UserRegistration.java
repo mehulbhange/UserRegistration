@@ -7,7 +7,7 @@ public class UserRegistration {
         System.out.println("User registration problem");
         Scanner sc = new Scanner(System.in);
         UserInputValidation validation = new UserInputValidation();
-        
+
         System.out.println("Enter first name ");
         String firstName = sc.next();
         if (validation.isFirstNameValid(firstName))
@@ -36,6 +36,12 @@ public class UserRegistration {
         else
             System.out.println("Invalid mobile number");
 
+        System.out.println("Enter password ");
+        String password = sc.next();
+        if (validation.isPasswordValid(password))
+            System.out.println("Valid password");
+        else
+            System.out.println("Invalid password");
 
     }
 }

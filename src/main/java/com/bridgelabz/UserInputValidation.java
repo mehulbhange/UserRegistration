@@ -35,5 +35,14 @@ public class UserInputValidation {
         matcher = pattern.matcher(mobileNo);
         return matcher.matches();
     }
+    /*
+    * This method used to check password is matching with regex or not
+    * */
+    public boolean isPasswordValid(String password){
+        String regex = "[a-zA-Z]{8,}";
+        pattern = Pattern.compile(regex);
+        matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
 
 }
