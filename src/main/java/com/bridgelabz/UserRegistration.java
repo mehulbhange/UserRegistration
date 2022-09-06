@@ -17,7 +17,7 @@ public class UserRegistration {
 
         System.out.println("Enter last name ");
         String lastName = sc.next();
-        if (validation.isFirstNameValid(lastName))
+        if (validation.isLastNameValid(lastName))
             System.out.println("Valid last name");
         else
             System.out.println("Invalid last name");
