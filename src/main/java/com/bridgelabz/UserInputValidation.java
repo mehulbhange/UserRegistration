@@ -29,4 +29,11 @@ public class UserInputValidation {
         return matcher.matches();
     }
 
+    public boolean isMobileNoValid(String mobileNo){
+        String regex = "[0-9]{1,2}[ ][0-9]{10}";
+        pattern = Pattern.compile(regex);
+        matcher = pattern.matcher(mobileNo);
+        return matcher.matches();
+    }
+
 }

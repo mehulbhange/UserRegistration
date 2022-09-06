@@ -29,6 +29,13 @@ public class UserRegistration {
         else
             System.out.println("Invalid email");
 
+        System.out.println("Enter Phone number ");
+        String phone = sc.nextLine();
+        if (validation.isMobileNoValid(phone))
+            System.out.println("Valid mobile number");
+        else
+            System.out.println("Invalid mobile number");
+
 
     }
 }
