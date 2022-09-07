@@ -23,7 +23,8 @@ public class UserInputValidation {
     }
 
     public boolean isEmailValid(String email){
-        String regex = "[a-z0-9.]+@[a-z]+.[a-z]{2,3}(.[a-z]{2,})*";
+        //String regex = "[^.]+[a-z0-9._+-][^.+()*#$%!@-]+@[a-z0-9]+[.][a-z]{2,3}(.[a-z]{2,})+";
+        String regex = "^[^.][A-Za-z0-9.+-]+[^.]@[a-z0-9]+([.][a-z]{2,3})([.][a-z]{2,3})?$";
         pattern = Pattern.compile(regex);
         matcher = pattern.matcher(email);
         return matcher.matches();
@@ -45,5 +46,6 @@ public class UserInputValidation {
         matcher = pattern.matcher(password);
         return matcher.matches();
     }
+
 
 }
