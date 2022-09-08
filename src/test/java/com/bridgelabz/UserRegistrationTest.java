@@ -2,6 +2,8 @@ package com.bridgelabz;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class UserRegistrationTest {
 
@@ -57,4 +59,22 @@ public class UserRegistrationTest {
         boolean result = userInputValidation.isMobileNoValid("abc45");
         Assertions.assertFalse(result);
     }
+
+    /*
+    * It will run the test cases multiple times for all given inputs
+    * */
+    @ParameterizedTest
+    @ValueSource(strings = {"abc@yahoo.com", "abc-100@yahoo.com","abc.100@yahoo.com","abc111@abc.com","abc.100@abc.com.au"})
+    public void givenMultipleValidEmail_shouldReturnTrue(String email){
+        Assertions.assertTrue(userInputValidation.isEmailValid(email));
+    }
+    /*
+     * It will run the test cases multiple times for all given inputs
+     * */
+    @ParameterizedTest
+    @ValueSource(strings = {"abc", "abc@.com.my","abc123@.com","abc123@gmail.a","abc123@.com.com"})
+    public void givenMultipleInvalidEmail_shouldReturnFalse(String email){
+        Assertions.assertFalse(userInputValidation.isEmailValid(email));
+    }
+
 }
