@@ -8,66 +8,60 @@ import java.util.regex.Pattern;
 public class UserInputValidation {
 
     private Pattern pattern;
-    private Matcher matcher;
+    private Pattern firstNamePattern = Pattern.compile("[A-Z][a-z]{2,}");
+    private Pattern lastNamePattern = Pattern.compile("[A-Z][a-z]{2,}");
+    private Pattern emailPattern = Pattern.compile("^[^.][A-Za-z0-9.+-]+[^.]@[a-z0-9]+([.][a-z]{2,3})([.][a-z]{2,3})?$");
+    private Pattern mobileNoPattern = Pattern.compile("[0-9]{1,2}[ ][0-9]{10}");
+    private Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=[^@#$%^&*+=]*[@#$%^&*+=][^@#$%^&*+=]*$).{8,}$");
 
-    public boolean isFirstNameValid(String firstName) throws InvalidFirstNameException{
-        String regex = "[A-Z][a-z]{2,}";
-        pattern = Pattern.compile(regex);
-        matcher = pattern.matcher(firstName);
-        boolean result = matcher.matches();
-        if (!result){
-            throw new InvalidFirstNameException(InvalidInputType.INVALID_FIRST_NAME,"Invalid first name");
-        }
-        return result;
+    public boolean isFirstNameValid(String firstName) throws InvalidInputException{
+        CheckPattern firstNameCheck = (regexPattern,input) -> {
+            boolean result =  regexPattern.matcher(input).matches();
+            if (!result)
+                throw new InvalidInputException(InvalidInputType.INVALID_FIRST_NAME,"Invalid first name");
+            return result;
+        };
+        return firstNameCheck.isValid(firstNamePattern, firstName);
     }
-
-    public boolean isLastNameValid(String lastName) throws InvalidLastNameException{
-        String regex = "[A-Z][a-z]{2,}";
-        pattern = Pattern.compile(regex);
-        matcher = pattern.matcher(lastName);
-        boolean result =  matcher.matches();
-        if (!result){
-            throw new InvalidLastNameException(InvalidInputType.INVALID_LAST_NAME,"Invalid last name");
-        }
-        return result;
+    public boolean isLastNameValid(String lastName) throws InvalidInputException{
+        CheckPattern lastNameCheck = (regexPattern, input) -> {
+            boolean result = regexPattern.matcher(input).matches();
+            if (!result) {
+                throw new InvalidInputException(InvalidInputType.INVALID_LAST_NAME, "Invalid last name");
+            }
+            return result;
+        };
+        return lastNameCheck.isValid(lastNamePattern, lastName);
     }
-
-    public boolean isEmailValid(String email) throws InvalidEmailException {
-        //String regex = "[^.]+[a-z0-9._+-][^.+()*#$%!@-]+@[a-z0-9]+[.][a-z]{2,3}(.[a-z]{2,})+";
-        String regex = "^[^.][A-Za-z0-9.+-]+[^.]@[a-z0-9]+([.][a-z]{2,3})([.][a-z]{2,3})?$";
-        pattern = Pattern.compile(regex);
-        matcher = pattern.matcher(email);
-        boolean result =  matcher.matches();
-        if (!result){
-            throw new InvalidEmailException(InvalidInputType.INVALID_EMAIL,"Invalid Email");
-        }
-        return result;
+    public boolean isEmailValid(String email) throws InvalidInputException {
+        CheckPattern emailCheck = (regexPattern, input) -> {
+            boolean result = regexPattern.matcher(input).matches();
+            if (!result) {
+                throw new InvalidInputException(InvalidInputType.INVALID_EMAIL, "Invalid Email");
+            }
+            return result;
+        };
+        return emailCheck.isValid(emailPattern, email);
     }
-
-    public boolean isMobileNoValid(String mobileNo) throws InvalidMobileException {
-        String regex = "[0-9]{1,2}[ ][0-9]{10}";
-        pattern = Pattern.compile(regex);
-        matcher = pattern.matcher(mobileNo);
-        boolean result = matcher.matches();
-        if (!result){
-            throw new InvalidMobileException(InvalidInputType.INVALID_MOBILE,"Invalid mobile number");
-        }
-        return result;
+    public boolean isMobileNoValid(String mobileNo) throws InvalidInputException {
+        CheckPattern mobileCheck = (regexPattern, input) ->{
+            boolean result = regexPattern.matcher(input).matches();
+            if (!result){
+                throw new InvalidInputException(InvalidInputType.INVALID_MOBILE,"Invalid mobile number");
+            }
+            return result;
+        };
+        return mobileCheck.isValid(mobileNoPattern,mobileNo);
     }
-    /*
-    * This method used to check password is matching with regex or not
-    * */
-    public boolean isPasswordValid(String password) throws InvalidPasswordException{
-        //String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&*+=]).{8,}$";
-        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=[^@#$%^&*+=]*[@#$%^&*+=][^@#$%^&*+=]*$).{8,}$";
-        pattern = Pattern.compile(regex);
-        matcher = pattern.matcher(password);
-        boolean result =  matcher.matches();
-        if (!result){
-            throw new InvalidPasswordException(InvalidInputType.INVALID_PASSWORD,"Invalid password");
-        }
-        return result;
+    public boolean isPasswordValid(String password) throws InvalidInputException{
+        CheckPattern passwordCheck = (regexPattern, input) -> {
+            boolean result = regexPattern.matcher(input).matches();
+            if (!result) {
+                throw new InvalidInputException(InvalidInputType.INVALID_PASSWORD, "Invalid password");
+            }
+            return result;
+        };
+        return passwordCheck.isValid(passwordPattern, password);
     }
-
 
 }

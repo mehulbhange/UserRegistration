@@ -16,7 +16,7 @@ public class UserRegistrationTest {
         try{
             boolean result = userInputValidation.isFirstNameValid("Mehul");
             Assertions.assertTrue(result);
-        }catch (InvalidFirstNameException exception){
+        }catch (InvalidInputException exception){
             Assertions.assertEquals(InvalidInputType.INVALID_FIRST_NAME, exception.type);
         }
 
@@ -27,7 +27,7 @@ public class UserRegistrationTest {
         try{
             boolean result = userInputValidation.isFirstNameValid("mehul");
             Assertions.assertTrue(result);
-        }catch (InvalidFirstNameException exception){
+        }catch (InvalidInputException exception){
             Assertions.assertEquals(InvalidInputType.INVALID_FIRST_NAME, exception.type);
         }
     }
@@ -37,7 +37,7 @@ public class UserRegistrationTest {
         try{
             boolean result = userInputValidation.isLastNameValid("Mehul");
             Assertions.assertTrue(result);
-        }catch (InvalidLastNameException exception){
+        }catch (InvalidInputException exception){
             Assertions.assertEquals(InvalidInputType.INVALID_LAST_NAME, exception.type);
         }
     }
@@ -47,17 +47,18 @@ public class UserRegistrationTest {
         try{
             boolean result = userInputValidation.isLastNameValid("mehul");
             Assertions.assertTrue(result);
-        }catch (InvalidLastNameException exception){
+        }catch (InvalidInputException exception){
             Assertions.assertEquals(InvalidInputType.INVALID_LAST_NAME, exception.type);
         }
     }
+
 
     @Test
     public void givenValidEmail_shouldReturnTrue(){
         try{
             boolean result = userInputValidation.isEmailValid("abc.100@yahoo.com");
             Assertions.assertTrue(result);
-        }catch (InvalidEmailException exception){
+        }catch (InvalidInputException exception){
             Assertions.assertEquals(InvalidInputType.INVALID_EMAIL, exception.type);
         }
     }
@@ -66,13 +67,14 @@ public class UserRegistrationTest {
         try{
             boolean result = userInputValidation.isEmailValid("abc.@yahoo.com");
             Assertions.assertTrue(result);
-        }catch (InvalidEmailException exception){
+        }catch (InvalidInputException exception){
             Assertions.assertEquals(InvalidInputType.INVALID_EMAIL, exception.type);
         }
     }
+
     @Test
     public void whenInvalidEmailExceptionThrown_thenAssertionSucceeds(){
-        InvalidEmailException exception = assertThrows(InvalidEmailException.class, () -> {
+        InvalidInputException exception = assertThrows(InvalidInputException.class, () -> {
             userInputValidation.isEmailValid("abc.@yahoo.com");
         });
         Assertions.assertEquals(InvalidInputType.INVALID_EMAIL, exception.type);
@@ -84,13 +86,13 @@ public class UserRegistrationTest {
         try{
             boolean result = userInputValidation.isMobileNoValid("91 9090909090");
             Assertions.assertTrue(result);
-        }catch (InvalidMobileException exception){
+        }catch (InvalidInputException exception){
             Assertions.assertEquals(InvalidInputType.INVALID_MOBILE, exception.type);
         }
     }
     @Test
     public void whenInvalidMobileExceptionThrown_thenAssertionSucceeds(){
-        InvalidMobileException exception = assertThrows(InvalidMobileException.class, () -> {
+        InvalidInputException exception = assertThrows(InvalidInputException.class, () -> {
             userInputValidation.isMobileNoValid("00 90909090");
         });
         Assertions.assertEquals(InvalidInputType.INVALID_MOBILE, exception.type);
@@ -101,13 +103,14 @@ public class UserRegistrationTest {
         try{
             boolean result = userInputValidation.isPasswordValid("Abc#1234");
             Assertions.assertTrue(result);
-        }catch (InvalidPasswordException exception){
+        }catch (InvalidInputException exception){
             Assertions.assertEquals(InvalidInputType.INVALID_PASSWORD, exception.type);
         }
     }
+
     @Test
     public void whenInvalidPasswordExceptionThrown_thenAssertionSucceeds(){
-        InvalidPasswordException exception = assertThrows(InvalidPasswordException.class, () -> {
+        InvalidInputException exception = assertThrows(InvalidInputException.class, () -> {
             userInputValidation.isPasswordValid("mehul123");
         });
         Assertions.assertEquals(InvalidInputType.INVALID_PASSWORD, exception.type);
